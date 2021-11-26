@@ -1,9 +1,9 @@
 OUTPUT_ARCH( "riscv" )
-ENTRY(_start)
+ENTRY(userstart)
 
 SECTIONS
 {
-  . = 0x80000000;
+  . = 0x1000;
   .text.init : { *(.text.init) }
   . = ALIGN(0x1000);
   .tohost : { *(.tohost) }
