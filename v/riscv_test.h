@@ -19,6 +19,10 @@
 
 #undef RVTEST_CODE_BEGIN
 #define RVTEST_CODE_BEGIN                                               \
+        .data;                                                          \
+        .global test_failed_info;                                       \
+test_failed_info:                                                       \
+        .string  "failed";                                               \
         .text;                                                          \
         .global extra_boot;                                             \
 extra_boot:                                                             \
@@ -33,10 +37,10 @@ userstart:                                                              \
 //-----------------------------------------------------------------------
 
 #undef RVTEST_PASS
-#define RVTEST_PASS li a0, 1; scall
+#define RVTEST_PASS li a7, 1; scall
 
 #undef RVTEST_FAIL
-#define RVTEST_FAIL sll a0, TESTNUM, 1; 1:beqz a0, 1b; or a0, a0, 1; scall;
+#define RVTEST_FAIL lui a0, %hi(test_failed_info);addi a0, a0, %lo(test_failed_info);li a1, 6;li a7, 4; scall;
 
 //-----------------------------------------------------------------------
 // Data Section Macro
