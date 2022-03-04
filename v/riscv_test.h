@@ -37,7 +37,7 @@ userstart:                                                              \
 //-----------------------------------------------------------------------
 
 #undef RVTEST_PASS
-#define RVTEST_PASS li a7, 1; scall
+#define RVTEST_PASS li a0, 0;li a7, 1; scall
 
 #undef RVTEST_FAIL
 #define RVTEST_FAIL lui a0, %hi(test_failed_info);addi a0, a0, %lo(test_failed_info);li a1, 6;li a7, 4; scall;
